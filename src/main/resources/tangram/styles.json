@@ -1,0 +1,19 @@
+{
+  "traditional":{
+    "url":"/styles/tangram/traditional/",
+    "name":"A Traditional Map",
+    "main-yaml":"scene.yaml"
+  },
+  "test":{
+    "url":"/styles/tangram/test/",
+    "name":"A Test For Data",
+    "main-yaml":"test.yaml",
+    "main-page":"index.html"
+  },
+  "highways":{
+    "url":"/styles/tangram/highways/",
+    "name":"A Map To Show HighWays",
+    "main-yaml":"highways.yaml",
+    "main-page":"index.html"
+  }
+}

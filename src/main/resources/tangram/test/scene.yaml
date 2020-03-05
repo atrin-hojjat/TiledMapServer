@@ -1,0 +1,156 @@
+cameras:
+    perspective:
+        type: perspective
+        vanishing_point: [0, -500]
+lights:
+    directional1:
+        type: directional
+        direction: [.1, .5, -1]
+        diffuse: [0.659, 0.694, 0.702]
+        ambient: [0.302, 0.298, 0.290]
+
+scene:
+    background:
+        color: '#FFFFFF'
+
+
+sources:
+    # When commented, demo main.js will set source based on URL - uncomment for testing
+    # osm:
+    #     type: TopoJSON
+    #     url:  http://vector.mapzen.com/osm/all/{z}/{x}/{y}.topojson?api_key=vector-tiles-HqUVidw
+    # schools:
+    #     type: GeoJSON
+    #     url: demos/data/school-districts-polygon.geojson
+    # counties:
+    #     type: TopoJSON
+    #     url: https://gist.githubusercontent.com/mbostock/4090846/raw/c899e3d4f3353924e495667c842f54a07090cfab/us.json
+    tehran_roads:
+        type: GeoJSON
+        url: http://0.0.0.0:1111/map/tiles/tests/tehran_roads/{z}/{x}/{y}/vtile.geojson
+        min_zoom: 12
+    simplified_land_polygons:
+        type: GeoJSON
+        url: http://0.0.0.0:1111/map/tiles/simplified_land_polygons/{z}/{x}/{y}/vtile.geojson
+        max_zoom: 13
+    tehran_water_polygons:
+        type: GeoJSON
+        url: http://0.0.0.0:1111/data/prototype/geojson/Tehran_Iran/tehran_iran_waterareas.geojson
+    tehran_amenities:
+        type: GeoJSON
+        url: http://0.0.0.0:1111/data/prototype/geojson/Tehran_Iran/tehran_iran_amenities.geojson
+#    world_water_polygons:
+#        type: TopoJSON
+#        url: http://0.0.0.0:1111/data/prototype/topojson/world/water_polygons.json
+
+styles:
+    roads:
+        base: lines
+    waterareas:
+        base: polygons
+    waterways:
+        base: lines
+    pois:
+        base: text
+layers:
+    simplified_land_polygons:
+        data: { source: simplified_land_polygons }
+        draw:
+            polygons:
+                color: '#9153FF'
+                visible: true
+                interactive: true
+#    tehran_roads:
+#        data: { source: tehran_roads }
+##        filter: function() {return $zoom >13;}
+#        draw:
+#            roads:
+#                color: '#664B2F'
+#                visible: true
+#                width: function () { return Math.log($zoom) + (20 - $zoom ); }
+#                outline:
+#                    color: black
+    roads:
+        data: { source: tehran_roads }
+        properties: { width: 3 }
+        default:
+            filter: { not: { bridge: 1 , tunnel: 1 , oneway: 1}}
+            draw:
+                lines:
+                    order: 2
+                    color: '#777'
+                    width: 5
+                text:
+                    font:
+                        fill: Blue
+                        typeface: 500 12px Arial
+        bridge:
+            filter: { bridge: 1 }
+            draw:
+                lines:
+                    order: 1
+                    color: '#FFAC7A'
+                    width: 5
+        tunnels:
+            filter: { tunnel: 1 }
+            draw:
+                lines:
+                    order: 3
+                    color: '#FF00EF'
+                    width: 5
+        oneway:
+            filter: { oneway: 1 }
+            draw:
+                lines:
+                    order: 3
+                    color: '#B2A3FF'
+                    width: 5
+    road_labels:
+        data: { source: tehran_roads}
+        filter: { name: true, aeroway: false, tunnel: false, railway: false, not: { kind: rail } }
+
+        highway:
+            filter: { kind: highway, $zoom: { min: 7 } }
+            draw:
+                text:
+                    font:
+                        fill: red
+                        typeface: 500 12px Helvetica
+        not_highway:
+            filter: { not: { kind: highway }, $zoom: { min: 13 } }
+            draw:
+                text:
+                    font:
+                        fill: black
+                        typeface: 100 11px Helvetica
+    tehran_amenities:
+        data: { source: tehran_amenities }
+        draw:
+            pois:
+                text_source: name
+                font:
+                    falmily: Arial
+                    size: 20px
+                    weight: bold
+                    fill: red
+    tehran_water_polygons:
+        data: { source: tehran_water_polygons }
+        draw:
+            waterareas:
+                color: '#226BFF'
+                visible: true
+    tehran_water_ways:
+            data: { source: tehran_water_ways }
+            draw:
+                waterareas:
+                    color: '#0835FF'
+                    visible: true
+                    width: function () { return Math.log($zoom); }
+
+
+
+#    polygons:
+#        data: { source: tehran_roads_gen0 ,layer: polygon_test }
+#        draw:
+#            polygonstyle:
+#                color: blue

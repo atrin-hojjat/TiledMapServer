@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>tangram test</title>
+    <link rel="stylesheet" href="/webdir/css/leaflet/leaflet.css"/>
+    <link rel="stylesheet" href="/styles/tangram/traditional/css/main.css"/>
+</head>
+<body>
+<script src="/webdir/js/leaflet/leaflet-1.0-dev.js"></script>
+<script src="/webdir/js/FileSaver.js"></script>
+<script src="/webdir/js/keymaster.js"></script>
+<script src="/webdir/js/rStats.extras.js"></script>
+<script src="/webdir/js/rStats.js"></script>
+<script src="/webdir/js/dat.gui.min.js"></script>
+<script src="/webdir/js/tangram.debug.js"></script>
+<style>
+    .label {
+        /*width: 200px;*/
+        /*margin-left: -100px;*/
+        position: absolute;
+        z-index: 10;
+        text-align: left;
+        margin: 0px;
+        background: #333;
+        opacity: 0.9;
+        padding: 2px;
+        /*text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;*/
+        /*word-wrap: break-word;*/
+    }
+    .labelInner {
+        padding: 3px 0px;
+        font-family: Helvetica, sans-serif;
+        font-size: 16px;
+        color: white;
+        opacity: 2.0;
+        margin: 0px;
+    }
+    .labelLine {
+        /*border: 2px solid gold;*/
+    }
+    .labelLine:hover {
+        border: 2px solid gold;
+    }
+</style>
+<div id="map"></div>
+<div id="test" ></div>
+<script src="/styles/tangram/test/main.js">
+</script>
+</body>
+</html>

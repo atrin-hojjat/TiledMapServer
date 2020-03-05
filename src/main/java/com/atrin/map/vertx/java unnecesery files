@@ -1,0 +1,24 @@
+TODO read html file
+
+index_html = new Scanner(this.getClass().getResourceAsStream("/com/atrin/map/vertx/resources/html/index.html"));
+html_context = "";
+while(index_html.hasNextLine()){
+	String line = index_html.nextLine();
+	html_context+=line;
+	System.out.println (line);
+}
+
+html_context.replace("\n", "");
+html_context.replace("\t", "");
+
+
+ TODO Route /* Files
+		Route main_page_router = router.route().path("/").method(HttpMethod.GET).method(HttpMethod.POST).handler();
+		main_page_router.handler(routingContext -> {
+
+			HttpServerResponse response = routingContext.response();
+
+			response.putHeader("content-type", "text/html");
+
+			response.end(html_context);
+		});
